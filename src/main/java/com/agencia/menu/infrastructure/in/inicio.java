@@ -260,7 +260,7 @@ public class inicio {
         if (TipodeUsuario.equals("Cliente")) {
 
             ArrayList<String> opcionCliente = new ArrayList<>();
-            opcionCliente.add("Busca tu Vuelo"); // TAL VEZ
+            opcionCliente.add("Elige tu Vuelo"); // TAL VEZ
             opcionCliente.add("Informacion de la Reserva de tu Vuelo"); //2     RR
             opcionCliente.add("Cancela la Reserva de tu Vuelo"); //3    RR
             opcionCliente.add("Edita la Reserva de tu Vuelo");  //4
@@ -287,7 +287,7 @@ public class inicio {
 
             switch (selectedIndex) {
                 case 1:
-                    consoleAdapterVuelo.consultar();
+                    consoleAdapterVuelo.buscar();
 
                     break;
 
@@ -300,8 +300,10 @@ public class inicio {
                     reservaController.cancelarReserva();
 
                     break;
-
+                    
                 case 4:
+                
+
 
                     break;
 

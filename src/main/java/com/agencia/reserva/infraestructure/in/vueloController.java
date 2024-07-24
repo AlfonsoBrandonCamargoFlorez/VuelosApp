@@ -127,15 +127,26 @@ public class vueloController {
       idDetalleReserva= crearReservaDetalleUseCase.execute(detalleReserva);
       detalleReserva.setId(idDetalleReserva);
       System.out.println("cantidad"+escalas.size());
-      int sillaseleccionada;
+      int sillaseleccionada=0;
   
   
   
       JOptionPane.showMessageDialog(null, "Selecciona silla");
 
         for (int j = 0; j < escalas.size(); j++) {
-          
-          sillaseleccionada=seleccionarSilla(escalas.get(j));
+          JPanel panelsilla = new JPanel(new GridLayout(0, 2));
+
+          JLabel nombreLabel = new JLabel("Nombre:");
+          JTextField nombreField = new JTextField();
+          panelsilla.add(nombreField);
+          panelsilla.add(nombreField);
+          int result = JOptionPane.showConfirmDialog(null, panelsilla, "Seleccionar tipo Documento",
+        JOptionPane.OK_CANCEL_OPTION,
+        JOptionPane.PLAIN_MESSAGE);
+    String tipoDocumento = null;
+    if (result == JOptionPane.OK_OPTION) {
+      sillaseleccionada=Integer.parseInt(nombreField.getText());
+    }
           asientodetalle.setIdConexion(escalas.get(j).getId());
           asientodetalle.setIdDetalleReserva(idDetalleReserva);
           asientodetalle.setIdAsiento(sillaseleccionada);
@@ -302,112 +313,5 @@ JPanel panelPasajero = new JPanel(new GridLayout(0, 2));
 
   }
 
-  public int seleccionarSilla(Escala escala) {
-    JPanel optionsPanel = new JPanel(new GridLayout(6, 20)); // 6 filas y 20 columnas
-    optionsPanel.setOpaque(false);
-    optionsPanel.setBackground(Color.black);
-    JRadioButton[][] options = new JRadioButton[6][20];
-    List<String> listaOcupadas = buscarSillasOcupadas.execute(escala.getId());
-
-    ButtonGroup group = new ButtonGroup();
-
-    for (int row = 0; row < 6; row++) {
-        for (int col = 0; col < 20; col++) {
-            options[row][col] = new JRadioButton(Integer.toString(row * 20 + col + 1));
-            options[row][col].setBackground(Color.gray);
-            options[row][col].setForeground(Color.green);
-
-            group.add(options[row][col]);
-            optionsPanel.add(options[row][col]);
-
-            for (String silla : listaOcupadas) {
-                int numsilla = Integer.parseInt(silla);
-                int fila = (numsilla - 1) / 20;
-                int columna = (numsilla - 1) % 20;
-
-                if (row == fila && col == columna) {
-                    options[row][col].setEnabled(false);
-                    options[row][col].setOpaque(true);
-                }
-            }
-        }
-    }
-
-    JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
-    mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-    mainPanel.setOpaque(false);
-    mainPanel.add(optionsPanel, BorderLayout.CENTER);
-
-    BackgroundPanel backgroundPanel = new BackgroundPanel(mainPanel, "src\\main\\resources\\avion.png");
-    JOptionPane.showMessageDialog(null, backgroundPanel, "Aeropuerto Salida: " + escala.getIdAeropuertoOrigen()
-            + " Aeropuerto Llegada: " + escala.getIdAeropuertoDestino(), JOptionPane.PLAIN_MESSAGE);
-
-    String sillaseleccionada = "";
-    boolean asientoSeleccionado = false;
-
-    for (int row = 0; row < 6; row++) {
-        for (int col = 0; col < 20; col++) {
-            if (options[row][col].isSelected()) {
-                sillaseleccionada = options[row][col].getText();
-                asientoSeleccionado = true;
-                System.out.println("Seleccionaste: " + sillaseleccionada);
-                break;
-            }
-        }
-        if (asientoSeleccionado) {
-            break;
-        }
-    }
-
-    if (!asientoSeleccionado) {
-        System.out.println("No seleccionaste sillas.");
-        return -1; // o cualquier otro valor por defecto para indicar que no se hizo una selección
-    }
-
-    try {
-        return Integer.parseInt(sillaseleccionada);
-    } catch (NumberFormatException e) {
-        System.out.println("Invalid seat selection: " + sillaseleccionada);
-        return -1; // o cualquier otro valor por defecto para indicar una entrada inválida
-    }
-}
-
-  class BackgroundPanel extends JPanel {
-    private Image backgroundImage;
-    @SuppressWarnings("unused")
-    private JComponent component;
-
-    public BackgroundPanel(JComponent component, String filePath) {
-      this.component = component;
-      try {
-        backgroundImage = ImageIO.read(new File(filePath));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      setLayout(new GridBagLayout());
-      add(component);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-      super.paintComponent(g);
-      if (backgroundImage != null) {
-        int imgWidth = backgroundImage.getWidth(this);
-        int imgHeight = backgroundImage.getHeight(this);
-        int x = (getWidth() - imgWidth) / 2;
-        int y = (getHeight() - imgHeight) / 2;
-        g.drawImage(backgroundImage, x, y, imgWidth, imgHeight, this);
-      }
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-      if (backgroundImage != null) {
-        return new Dimension(1200, 700);
-      } else {
-        return super.getPreferredSize();
-      }
-    }
-  }
-
+ 
 }
