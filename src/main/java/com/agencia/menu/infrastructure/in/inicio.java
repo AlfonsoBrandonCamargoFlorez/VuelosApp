@@ -46,6 +46,12 @@ import com.agencia.reserva.infraestructure.in.ReservaController;
 import com.agencia.reserva.infraestructure.in.vueloController;
 import com.agencia.reserva.infraestructure.out.ReservaRepository;
 import com.agencia.reserva.infraestructure.out.vueloRepository;
+import com.agencia.revision.application.CreateRevisionUseCase;
+import com.agencia.revision.application.DeleteRevisionUseCase;
+import com.agencia.revision.application.FindRevisionUseCase;
+import com.agencia.revision.application.UpdateRevisionUseCase;
+import com.agencia.revision.infraestructure.RevisionController;
+import com.agencia.revision.infraestructure.RevisionRepository;
 import com.agencia.tarifa.application.CreateTarifaUseCase;
 import com.agencia.tarifa.application.DeleteTarifaUseCase;
 import com.agencia.tarifa.application.FindTarifaUseCase;
@@ -188,6 +194,13 @@ public class inicio {
 
         
 
+        RevisionRepository revisionRepository = new RevisionRepository();
+        CreateRevisionUseCase createRevisionUseCase = new CreateRevisionUseCase(revisionRepository) ;
+        UpdateRevisionUseCase updateRevisionUseCase = new UpdateRevisionUseCase(revisionRepository);
+        FindRevisionUseCase findRevisionUseCase = new FindRevisionUseCase(revisionRepository);
+        DeleteRevisionUseCase deleteRevisionUseCase = new DeleteRevisionUseCase(revisionRepository);
+
+        RevisionController revisionController = new RevisionController(createRevisionUseCase, updateRevisionUseCase, findRevisionUseCase, deleteRevisionUseCase);
 
 
 
@@ -448,8 +461,11 @@ public class inicio {
         if (TipodeUsuario.equals("Tecnico")) {
 
             ArrayList<String> opcionTecnico = new ArrayList<>();
-            opcionTecnico.add(" Actualizar Información de Revisión");
-            opcionTecnico.add("Eliminar Revisión de Mantenimiento");
+            opcionTecnico.add(" Crear Revision");//     RR
+            opcionTecnico.add("Borrar Revision");//     RR
+            opcionTecnico.add("Encontrar Revisiono");//     RR
+            opcionTecnico.add("Actualizar Revisiono");//        RR
+            opcionTecnico.add("Salir");
             JComboBox<String> comboBoxMenuAgente = new JComboBox<>(opcionTecnico.toArray(new String[0]));
             JPanel panelTecnico = new JPanel(new GridLayout(0, 1));
             panelTecnico.add(new JLabel("Tecnicos:"));
@@ -473,12 +489,20 @@ public class inicio {
 
             switch (selectedIndex) {
                 case 1:
-
+                    revisionController.createRevision();
                     break;
 
                 case 2:
-
+                    revisionController.deleteRevision();
                     break;
+                case 3:
+                    revisionController.findRevision();
+                    break;
+                case 4:
+                    revisionController.updateRevision();
+                    break;
+                case 5:
+                    break ;
 
                 default:
                     break;

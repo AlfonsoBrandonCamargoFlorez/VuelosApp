@@ -26,40 +26,7 @@ public class RevisionController{
 
     Scanner scanner = new Scanner(System.in);
 
-    public void gestionRevision(){
 
-
-        while(true){
-            System.out.println("1. Crear Revision: ");
-            System.out.println("2. Borrar Revision: ");
-            System.out.println("3. Encontrar Revision: ");
-            System.out.println("4. Actualizar Revision: ");
-            System.out.println("5. Salir: ");
-            
-            int opcion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcion) {
-                case 1:
-
-                    createRevision();
-                    break;
-
-                case 2:
-                    deleteRevision();
-                    break;
-
-
-                case 3:
-                    findRevision();
-                    break;
-
-                case 4:
-                    updateRevision();
-                    break;
-            }
-        }
-    }
 
     public void createRevision(){
 
