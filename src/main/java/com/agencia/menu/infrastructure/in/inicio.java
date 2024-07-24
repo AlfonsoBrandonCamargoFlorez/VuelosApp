@@ -303,7 +303,9 @@ public class inicio {
                     
                 case 4:
                 
-
+                System.out.println("┏┓┳┓  ┏┓┏┓┳┓┏┓┏┳┓┳┓┳┳┏┓┏┓┳┏┓┳┓"); 
+                System.out.println("┣ ┃┃  ┃ ┃┃┃┃┗┓ ┃ ┣┫┃┃┃ ┃ ┃┃┃┃┃"); 
+                System.out.println("┗┛┛┗  ┗┛┗┛┛┗┗┛ ┻ ┛┗┗┛┗┛┗┛┻┗┛┛┗"); 
 
                     break;
 
@@ -494,8 +496,8 @@ public class inicio {
             ArrayList<String> opcionTecnico = new ArrayList<>();
             opcionTecnico.add(" Crear Revision");//     RR
             opcionTecnico.add("Borrar Revision");//     RR
-            opcionTecnico.add("Encontrar Revisiono");//     RR
-            opcionTecnico.add("Actualizar Revisiono");//        RR
+            opcionTecnico.add("Encontrar Revision");//     RR
+            opcionTecnico.add("Actualizar Revision");//        RR
             opcionTecnico.add("Salir");
             JComboBox<String> comboBoxMenuAgente = new JComboBox<>(opcionTecnico.toArray(new String[0]));
             JPanel panelTecnico = new JPanel(new GridLayout(0, 1));
@@ -516,7 +518,7 @@ public class inicio {
                     break;
                 }
             }
-            System.out.println(selectedIndex);
+            //System.out.println(selectedIndex);
 
             switch (selectedIndex) {
                 case 1:
@@ -533,6 +535,7 @@ public class inicio {
                     revisionController.updateRevision();
                     break;
                 case 5:
+                    System.out.println("BYE!");
                     break ;
 
                 default:
@@ -577,7 +580,7 @@ public class inicio {
                     break;
                 }
             }
-            System.out.println(selectedIndex);
+            //System.out.println(selectedIndex);
 
             switch (selectedIndex) {
                 case 1:
@@ -618,6 +621,15 @@ public class inicio {
                     break;
 
                 case 9:
+
+
+                   System.out.println("┏┓┳┓  ┏┓┏┓┳┓┏┓┏┳┓┳┓┳┳┏┓┏┓┳┏┓┳┓"); 
+                   System.out.println("┣ ┃┃  ┃ ┃┃┃┃┗┓ ┃ ┣┫┃┃┃ ┃ ┃┃┃┃┃"); 
+                   System.out.println("┗┛┛┗  ┗┛┗┛┛┗┗┛ ┻ ┛┗┗┛┗┛┗┛┻┗┛┛┗"); 
+                                              
+                
+
+
                     break;
 
                 case 10:
@@ -625,6 +637,9 @@ public class inicio {
                     break;
 
                 case 11:
+                System.out.println("┏┓┳┓  ┏┓┏┓┳┓┏┓┏┳┓┳┓┳┳┏┓┏┓┳┏┓┳┓"); 
+                System.out.println("┣ ┃┃  ┃ ┃┃┃┃┗┓ ┃ ┣┫┃┃┃ ┃ ┃┃┃┃┃"); 
+                System.out.println("┗┛┛┗  ┗┛┗┛┛┗┗┛ ┻ ┛┗┗┛┗┛┗┛┻┗┛┛┗"); 
                     break;
 
                 default:

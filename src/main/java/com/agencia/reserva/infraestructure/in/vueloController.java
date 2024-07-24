@@ -140,7 +140,7 @@ public class vueloController {
           JTextField nombreField = new JTextField();
           panelsilla.add(nombreField);
           panelsilla.add(nombreField);
-          int result = JOptionPane.showConfirmDialog(null, panelsilla, "Seleccionar tipo Documento",
+          int result = JOptionPane.showConfirmDialog(null, panelsilla, "Escala # :"+ j+1,
         JOptionPane.OK_CANCEL_OPTION,
         JOptionPane.PLAIN_MESSAGE);
     String tipoDocumento = null;
