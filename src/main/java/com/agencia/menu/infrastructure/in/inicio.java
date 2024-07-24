@@ -47,6 +47,13 @@ import com.agencia.tarifa.application.UpdateTarifaUseCase;
 import com.agencia.tarifa.domain.service.TarifaService;
 import com.agencia.tarifa.infraestructure.in.TarifaController;
 import com.agencia.tarifa.infraestructure.out.TarifaRepository;
+import com.agencia.tipoDocumento.application.CreateTipoDocumentoUseCase;
+import com.agencia.tipoDocumento.application.DeleteTipoDocumentoUseCase;
+import com.agencia.tipoDocumento.application.FindTipoDocumentoUseCase;
+import com.agencia.tipoDocumento.application.UpdateTipoDocumentoUseCase;
+import com.agencia.tipoDocumento.domain.service.TipoDocumentoService;
+import com.agencia.tipoDocumento.infraestructure.TipoDocumentoController;
+import com.agencia.tipoDocumento.infraestructure.TipoDocumentoRepository;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -98,6 +105,16 @@ public class inicio {
 
 
 
+        TipoDocumentoService tipoDocumentoService = new TipoDocumentoRepository();
+        CreateTipoDocumentoUseCase createTipoDocumentoUseCase = new CreateTipoDocumentoUseCase (tipoDocumentoService);
+        UpdateTipoDocumentoUseCase updateTipoDocumentoUseCase = new  UpdateTipoDocumentoUseCase(tipoDocumentoService);
+        DeleteTipoDocumentoUseCase deleteTipoDocumentoUseCase = new DeleteTipoDocumentoUseCase(tipoDocumentoService) ;
+        FindTipoDocumentoUseCase findTipoDocumentoUseCase = new FindTipoDocumentoUseCase(tipoDocumentoService) ;
+
+        TipoDocumentoController tipoDocumentoController = new TipoDocumentoController(createTipoDocumentoUseCase, updateTipoDocumentoUseCase, deleteTipoDocumentoUseCase, findTipoDocumentoUseCase);
+
+
+
         TarifaService tarifaService = new TarifaRepository();
         CreateTarifaUseCase createtarifaUseCase = new CreateTarifaUseCase(tarifaService);
         FindTarifaUseCase findtarifaUseCase = new FindTarifaUseCase(tarifaService);
@@ -130,6 +147,12 @@ public class inicio {
                 buscarvuelosUseCase, crearReservaUseCase, verificarPasajero, buscarTiposDocumentos,
                 findEscalaUseCase, crearReservaDetalleUseCase, asignarSillaUseCase, buscarSillasOcupadas,
                 crearPasajeroUseCase);
+
+
+
+
+        
+        
 
 
 
@@ -215,7 +238,7 @@ public class inicio {
             opcionesAdmin.add("Editar Avión"); // 2     RR
             opcionesAdmin.add("Eliminar Avión"); // 3       RR
             opcionesAdmin.add("Información Avión"); // 4        RR
-            
+
             opcionesAdmin.add("Asignar Tripulación al Trayecto"); // 5
             opcionesAdmin.add("Información Trayecto"); // 6
             opcionesAdmin.add("Editar Trayecto"); // 7
@@ -235,10 +258,10 @@ public class inicio {
             opcionesAdmin.add("Eliminar Tarifa de Vuelo"); // 19 RR
             opcionesAdmin.add("Buscar Tarifa de Vuelo"); // 20 RR
 
-            opcionesAdmin.add("Crear Tipo de Documento"); // 21
-            opcionesAdmin.add("Editar Tipo de Documento"); // 22
-            opcionesAdmin.add("Eliminar Tipo de Documento"); // 23
-            opcionesAdmin.add("Buscar según Tipo de Documento"); // 24
+            opcionesAdmin.add("Crear Tipo de Documento"); // 21     RR
+            opcionesAdmin.add("Editar Tipo de Documento"); // 22        RR
+            opcionesAdmin.add("Eliminar Tipo de Documento"); // 23      RR
+            opcionesAdmin.add("Buscar según Tipo de Documento"); // 24      RR
 
             opcionesAdmin.add("Buscar Información de Vuelo"); // 25 RR
             opcionesAdmin.add("Buscar Asignación de Tripulación"); // 26
@@ -347,18 +370,20 @@ public class inicio {
                     break;
 
                 case 21:
-
+                    tipoDocumentoController.createTipoDocumento();
                     break;
 
                 case 22:
-
+                    tipoDocumentoController.updateTipoDocumento();
                     break;
 
                 case 23:
+                    tipoDocumentoController.deleteTipoDocumento();
 
                     break;
 
                 case 24:
+                    tipoDocumentoController.findIdtipoDocumento();
 
                     break;
 
