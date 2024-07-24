@@ -32,13 +32,19 @@ import com.agencia.reserva.application.BuscarCiudades;
 import com.agencia.reserva.application.BuscarSillasOcupadas;
 import com.agencia.reserva.application.BuscarTiposDocumentos;
 import com.agencia.reserva.application.BuscarvuelosUseCase;
+import com.agencia.reserva.application.CancelReservaClienteUseCase;
 import com.agencia.reserva.application.ConsultvueloUseCase;
 import com.agencia.reserva.application.CrearPasajeroUseCase;
 import com.agencia.reserva.application.CrearReservaDetalleUseCase;
 import com.agencia.reserva.application.CrearReservaUseCase;
+import com.agencia.reserva.application.CreateReservaAgenteUseCase;
+import com.agencia.reserva.application.DeleteReservaAgenteUseCase;
+import com.agencia.reserva.application.FindReservaAgenteUseCase;
 import com.agencia.reserva.application.VerificarPasajero;
 import com.agencia.reserva.domain.service.vueloService;
+import com.agencia.reserva.infraestructure.in.ReservaController;
 import com.agencia.reserva.infraestructure.in.vueloController;
+import com.agencia.reserva.infraestructure.out.ReservaRepository;
 import com.agencia.reserva.infraestructure.out.vueloRepository;
 import com.agencia.tarifa.application.CreateTarifaUseCase;
 import com.agencia.tarifa.application.DeleteTarifaUseCase;
@@ -59,6 +65,8 @@ import com.agencia.tripulacion.application.FindTripulacionUseCase;
 import com.agencia.tripulacion.domain.service.TripulacionService;
 import com.agencia.tripulacion.infraestructure.TripulacionController;
 import com.agencia.tripulacion.infraestructure.TripulacionRepository;
+
+
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -159,10 +167,26 @@ public class inicio {
         BuscarSillasOcupadas buscarSillasOcupadas = new BuscarSillasOcupadas(vueloService);
         CrearPasajeroUseCase crearPasajeroUseCase = new CrearPasajeroUseCase(vueloService);
 
+
         vueloController consoleAdapterVuelo = new vueloController(consultvueloUseCase, buscarCiudades,
                 buscarvuelosUseCase, crearReservaUseCase, verificarPasajero, buscarTiposDocumentos,
                 findEscalaUseCase, crearReservaDetalleUseCase, asignarSillaUseCase, buscarSillasOcupadas,
                 crearPasajeroUseCase);
+
+
+
+
+
+        ReservaRepository repository = new ReservaRepository();
+        CreateReservaAgenteUseCase createReservaAgenteUseCase = new CreateReservaAgenteUseCase(repository) ;
+        FindReservaAgenteUseCase findReservaAgenteUseCase = new FindReservaAgenteUseCase(repository);
+        DeleteReservaAgenteUseCase deleteReservaAgenteUseCase = new DeleteReservaAgenteUseCase(repository);
+        CancelReservaClienteUseCase cancelReservaClienteUseCase = new CancelReservaClienteUseCase(repository) ;
+
+        ReservaController reservaController = new ReservaController(createReservaAgenteUseCase, findReservaAgenteUseCase, deleteReservaAgenteUseCase, cancelReservaClienteUseCase);
+
+
+        
 
 
 
@@ -199,9 +223,9 @@ public class inicio {
 
             ArrayList<String> opcionCliente = new ArrayList<>();
             opcionCliente.add("Busca tu Vuelo"); // TAL VEZ
-            opcionCliente.add("Informacion de la Reserva de tu Vuelo");
-            opcionCliente.add("Cancela la Reserva de tu Vuelo");
-            opcionCliente.add("Edita la Reserva de tu Vuelo");
+            opcionCliente.add("Informacion de la Reserva de tu Vuelo"); //2     RR
+            opcionCliente.add("Cancela la Reserva de tu Vuelo"); //3    RR
+            opcionCliente.add("Edita la Reserva de tu Vuelo");  //4
             JComboBox<String> comboBoxMenuAgente = new JComboBox<>(opcionCliente.toArray(new String[0]));
             JPanel panelCliente = new JPanel(new GridLayout(0, 1));
             panelCliente.add(new JLabel("Cliente:"));
@@ -230,10 +254,12 @@ public class inicio {
                     break;
 
                 case 2:
+                    reservaController.findReservaAgente();
 
                     break;
 
                 case 3:
+                    reservaController.cancelarReserva();
 
                     break;
 
@@ -463,9 +489,9 @@ public class inicio {
         if (TipodeUsuario.equals("Agente de Ventas")) {
 
             ArrayList<String> opcionesAgente = new ArrayList<>();
-            opcionesAgente.add("Crear Reserva de Vuelo"); // 1
-            opcionesAgente.add("Eliminar Reserva de Vuelo"); // 2
-            opcionesAgente.add("Información Reserva de Vuelo"); // 3
+            opcionesAgente.add("Crear Reserva de Vuelo"); // 1      RR
+            opcionesAgente.add("Eliminar Reserva de Vuelo"); // 2       RR
+            opcionesAgente.add("Información Reserva de Vuelo"); // 3        RR
 
             opcionesAgente.add("Crear Cliente"); // 4 RR
             opcionesAgente.add("Actualizar Información de Cliente"); // 5 RR
@@ -500,15 +526,16 @@ public class inicio {
 
             switch (selectedIndex) {
                 case 1:
+                    reservaController.createReserva();
 
                     break;
 
                 case 2:
-
+                    reservaController.deleteReservaAgente();
                     break;
 
                 case 3:
-
+                reservaController.findReservaAgente();
                     break;
 
                 case 4:
