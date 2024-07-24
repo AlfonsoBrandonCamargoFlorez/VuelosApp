@@ -46,7 +46,7 @@ public class TarifaController {
     }
 
     public void buscar() throws SQLException {
-        String idString = JOptionPane.showInputDialog("Ingrese descripcion");
+        String idString = JOptionPane.showInputDialog("Ingrese ID tarifa");
         int id = Integer.parseInt(idString);
         Tarifa tarifa = new Tarifa();
         

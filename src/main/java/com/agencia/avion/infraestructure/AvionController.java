@@ -25,53 +25,7 @@ public class AvionController {
 
     Scanner scanner = new Scanner(System.in);
 
-    public void gestionAvion(){
-
-
-        while(true){
-            System.out.println("1. Crear Avion: ");
-            System.out.println("2. Borrar Avion: ");
-            System.out.println("3. Encontrar Avion: ");
-            System.out.println("4. Actualizar Avion: ");
-            System.out.println("5. Salir: ");
-            
-            int opcion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcion) {
-                case 1:
-
-                    createAvion();
-                    
-                    break;
-
-                case 2:
-                    
-                    deleteAvion();            
     
-                    break;
-
-                case 3:
-                
-                    findAvion();
-                    
-                    break;
-
-                case 4:
-
-                    updateAvion();
-
-                    break;
-
-                
-            
-                default:
-                    break;
-            }
-            
-        }
-
-    }
 
     public void createAvion(){
       

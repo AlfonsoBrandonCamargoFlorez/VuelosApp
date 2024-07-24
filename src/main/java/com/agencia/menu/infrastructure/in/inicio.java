@@ -11,6 +11,13 @@ import com.agencia.aeropuerto.aplication.UpdateAeropuertoCase;
 import com.agencia.aeropuerto.domain.service.AeropuertoService;
 import com.agencia.aeropuerto.infrastructure.in.AeropuertoController;
 import com.agencia.aeropuerto.infrastructure.out.AeropuertoRepository;
+import com.agencia.avion.application.CreateAvionUseCase;
+import com.agencia.avion.application.DeleteAvionUseCase;
+import com.agencia.avion.application.FindAvionUseCase;
+import com.agencia.avion.application.UpdateAvionUseCase;
+import com.agencia.avion.domain.service.AvionService;
+import com.agencia.avion.infraestructure.AvionController;
+import com.agencia.avion.infraestructure.AvionRepository;
 import com.agencia.cliente.aplication.CreateClienteCase;
 import com.agencia.cliente.aplication.DeleteClienteCase;
 import com.agencia.cliente.aplication.FindClienteCase;
@@ -18,6 +25,28 @@ import com.agencia.cliente.aplication.UpdateClienteCase;
 import com.agencia.cliente.domain.service.ClienteService;
 import com.agencia.cliente.infrastructure.in.ClienteController;
 import com.agencia.cliente.infrastructure.out.ClienteRepository;
+import com.agencia.escala.application.FindEscalaUseCase;
+import com.agencia.escala.infraestructure.EscalaRepository;
+import com.agencia.reserva.application.AsignarsillaUseCase;
+import com.agencia.reserva.application.BuscarCiudades;
+import com.agencia.reserva.application.BuscarSillasOcupadas;
+import com.agencia.reserva.application.BuscarTiposDocumentos;
+import com.agencia.reserva.application.BuscarvuelosUseCase;
+import com.agencia.reserva.application.ConsultvueloUseCase;
+import com.agencia.reserva.application.CrearPasajeroUseCase;
+import com.agencia.reserva.application.CrearReservaDetalleUseCase;
+import com.agencia.reserva.application.CrearReservaUseCase;
+import com.agencia.reserva.application.VerificarPasajero;
+import com.agencia.reserva.domain.service.vueloService;
+import com.agencia.reserva.infraestructure.in.vueloController;
+import com.agencia.reserva.infraestructure.out.vueloRepository;
+import com.agencia.tarifa.application.CreateTarifaUseCase;
+import com.agencia.tarifa.application.DeleteTarifaUseCase;
+import com.agencia.tarifa.application.FindTarifaUseCase;
+import com.agencia.tarifa.application.UpdateTarifaUseCase;
+import com.agencia.tarifa.domain.service.TarifaService;
+import com.agencia.tarifa.infraestructure.in.TarifaController;
+import com.agencia.tarifa.infraestructure.out.TarifaRepository;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -40,6 +69,9 @@ public class inicio {
                 deleteClienteCase,
                 updateClienteCase);
 
+
+
+
         AeropuertoService aeropuertoService = new AeropuertoRepository();
         CreateAeropuertoCase createAeropuertoCase = new CreateAeropuertoCase(aeropuertoService);
         FindAeropuertoCase findAeropuertoCase = new FindAeropuertoCase(aeropuertoService);
@@ -51,6 +83,59 @@ public class inicio {
                 findAeropuertoCase,
                 deleteAeropuertoCase,
                 updateAeropuertoCase);
+
+
+
+
+        AvionService avionService = new AvionRepository();
+        CreateAvionUseCase createAvionUseCase = new  CreateAvionUseCase (avionService);
+        UpdateAvionUseCase updateAvionUseCase = new UpdateAvionUseCase(avionService);
+        DeleteAvionUseCase deleteAvionUseCase = new DeleteAvionUseCase(avionService);
+        FindAvionUseCase findAvionUseCase = new  FindAvionUseCase(avionService);
+
+        AvionController avionController = new AvionController(createAvionUseCase, updateAvionUseCase, deleteAvionUseCase, findAvionUseCase);
+
+
+
+
+        TarifaService tarifaService = new TarifaRepository();
+        CreateTarifaUseCase createtarifaUseCase = new CreateTarifaUseCase(tarifaService);
+        FindTarifaUseCase findtarifaUseCase = new FindTarifaUseCase(tarifaService);
+        UpdateTarifaUseCase updateCaseUsetarifa = new UpdateTarifaUseCase(tarifaService);
+        DeleteTarifaUseCase deletetarifaUseCase = new DeleteTarifaUseCase(tarifaService);
+
+        TarifaController tarifaController = new TarifaController(createtarifaUseCase, findtarifaUseCase,
+                deletetarifaUseCase, updateCaseUsetarifa);
+
+
+
+
+        vueloService vueloService = new vueloRepository();
+        EscalaRepository escalaRepository = new EscalaRepository();
+        FindEscalaUseCase findEscalaUseCase = new FindEscalaUseCase(escalaRepository);
+
+        ConsultvueloUseCase consultvueloUseCase = new ConsultvueloUseCase(vueloService);
+        BuscarCiudades buscarCiudades = new BuscarCiudades(vueloService);
+        BuscarvuelosUseCase buscarvuelosUseCase = new BuscarvuelosUseCase(vueloService);
+        CrearReservaUseCase crearReservaUseCase = new CrearReservaUseCase(vueloService);
+        VerificarPasajero verificarPasajero = new VerificarPasajero(vueloService);
+        BuscarTiposDocumentos buscarTiposDocumentos = new BuscarTiposDocumentos(vueloService);
+        AsignarsillaUseCase asignarSillaUseCase = new AsignarsillaUseCase(vueloService);
+        CrearReservaDetalleUseCase crearReservaDetalleUseCase = new CrearReservaDetalleUseCase(
+                vueloService);
+        BuscarSillasOcupadas buscarSillasOcupadas = new BuscarSillasOcupadas(vueloService);
+        CrearPasajeroUseCase crearPasajeroUseCase = new CrearPasajeroUseCase(vueloService);
+
+        vueloController consoleAdapterVuelo = new vueloController(consultvueloUseCase, buscarCiudades,
+                buscarvuelosUseCase, crearReservaUseCase, verificarPasajero, buscarTiposDocumentos,
+                findEscalaUseCase, crearReservaDetalleUseCase, asignarSillaUseCase, buscarSillasOcupadas,
+                crearPasajeroUseCase);
+
+
+
+
+
+
 
         ArrayList<String> tiposUsuario = new ArrayList<>();
         tiposUsuario.add("Cliente");
@@ -74,7 +159,7 @@ public class inicio {
         if (TipodeUsuario.equals("Cliente")) {
 
             ArrayList<String> opcionCliente = new ArrayList<>();
-            opcionCliente.add("Busca tu Vuelo");
+            opcionCliente.add("Busca tu Vuelo"); // TAL VEZ
             opcionCliente.add("Informacion de la Reserva de tu Vuelo");
             opcionCliente.add("Cancela la Reserva de tu Vuelo");
             opcionCliente.add("Edita la Reserva de tu Vuelo");
@@ -101,6 +186,7 @@ public class inicio {
 
             switch (selectedIndex) {
                 case 1:
+                    consoleAdapterVuelo.consultar();
 
                     break;
 
@@ -125,11 +211,11 @@ public class inicio {
 
             ArrayList<String> opcionesAdmin = new ArrayList<>();
 
-            opcionesAdmin.add("Agregar Avión"); // 1
-            opcionesAdmin.add("Editar Avión"); // 2
-            opcionesAdmin.add("Eliminar Avión"); // 3
-            opcionesAdmin.add("Información Avión"); // 4
-
+            opcionesAdmin.add("Agregar Avión"); // 1        RR
+            opcionesAdmin.add("Editar Avión"); // 2     RR
+            opcionesAdmin.add("Eliminar Avión"); // 3       RR
+            opcionesAdmin.add("Información Avión"); // 4        RR
+            
             opcionesAdmin.add("Asignar Tripulación al Trayecto"); // 5
             opcionesAdmin.add("Información Trayecto"); // 6
             opcionesAdmin.add("Editar Trayecto"); // 7
@@ -139,22 +225,22 @@ public class inicio {
             opcionesAdmin.add("Editar Información de Escala"); // 11
             opcionesAdmin.add("Eliminar Escala"); // 12
 
-            opcionesAdmin.add("Agregar Aeropuerto"); // 13
-            opcionesAdmin.add("Editar Aeropuerto"); // 14
-            opcionesAdmin.add("Eliminar Aeropuerto"); // 15
-            opcionesAdmin.add("Información Aeropuerto"); // 16
+            opcionesAdmin.add("Agregar Aeropuerto"); // 13 RR
+            opcionesAdmin.add("Editar Aeropuerto"); // 14 RR
+            opcionesAdmin.add("Eliminar Aeropuerto"); // 15 RR
+            opcionesAdmin.add("Información Aeropuerto"); // 16 RR
 
-            opcionesAdmin.add("Crear Tarifa de Vuelo"); // 17
-            opcionesAdmin.add("Editar Tarifa de Vuelo"); // 18
-            opcionesAdmin.add("Eliminar Tarifa de Vuelo"); // 19
-            opcionesAdmin.add("Buscar Tarifa de Vuelo"); // 20
+            opcionesAdmin.add("Crear Tarifa de Vuelo"); // 17 RR
+            opcionesAdmin.add("Editar Tarifa de Vuelo"); // 18 RR
+            opcionesAdmin.add("Eliminar Tarifa de Vuelo"); // 19 RR
+            opcionesAdmin.add("Buscar Tarifa de Vuelo"); // 20 RR
 
             opcionesAdmin.add("Crear Tipo de Documento"); // 21
             opcionesAdmin.add("Editar Tipo de Documento"); // 22
             opcionesAdmin.add("Eliminar Tipo de Documento"); // 23
             opcionesAdmin.add("Buscar según Tipo de Documento"); // 24
 
-            opcionesAdmin.add("Buscar Información de Vuelo"); // 25
+            opcionesAdmin.add("Buscar Información de Vuelo"); // 25 RR
             opcionesAdmin.add("Buscar Asignación de Tripulación"); // 26
             JComboBox<String> comboBoxMenuAdmin = new JComboBox<>(opcionesAdmin.toArray(new String[0]));
             JPanel panelAdministrador = new JPanel(new GridLayout(0, 1));
@@ -180,15 +266,19 @@ public class inicio {
 
             switch (selectedIndex) {
                 case 1:
+                avionController.createAvion();
                     break;
 
                 case 2:
+                avionController.updateAvion();
                     break;
 
                 case 3:
+                avionController.deleteAvion();
                     break;
 
                 case 4:
+                avionController.findAvion();
                     break;
 
                 case 5:
@@ -225,31 +315,35 @@ public class inicio {
                     break;
 
                 case 14:
+                    aeropuertoController.actualizar();
 
                     break;
 
                 case 15:
+                    aeropuertoController.eliminar();
 
                     break;
 
                 case 16:
+                    aeropuertoController.buscar();
 
                     break;
 
                 case 17:
+                    tarifaController.crear();
 
                     break;
 
                 case 18:
-
+                    tarifaController.actualizar();
                     break;
 
                 case 19:
-
+                    tarifaController.eliminar();
                     break;
 
                 case 20:
-
+                    tarifaController.buscar();
                     break;
 
                 case 21:
@@ -269,6 +363,7 @@ public class inicio {
                     break;
 
                 case 25:
+                    consoleAdapterVuelo.consultar();
 
                     break;
 
@@ -331,14 +426,14 @@ public class inicio {
             opcionesAgente.add("Eliminar Reserva de Vuelo"); // 2
             opcionesAgente.add("Información Reserva de Vuelo"); // 3
 
-            opcionesAgente.add("Crear Cliente"); // 4
-            opcionesAgente.add("Actualizar Información de Cliente"); // 5
-            opcionesAgente.add("Información de Cliente"); // 6
+            opcionesAgente.add("Crear Cliente"); // 4 RR
+            opcionesAgente.add("Actualizar Información de Cliente"); // 5 RR
+            opcionesAgente.add("Información de Cliente"); // RR
 
-            opcionesAgente.add("Información de Vuelo"); // 7
+            opcionesAgente.add("Información de Vuelo"); // 7 RR
             opcionesAgente.add("Información Asignación de Tripulación"); // 8
             opcionesAgente.add("Información Escalas de un Trayecto"); // 9
-            opcionesAgente.add("Información Tarifa de Vuelo"); // 10
+            opcionesAgente.add("Información Tarifa de Vuelo"); // 10 RR
             opcionesAgente.add("Información Tipo de Documento"); // 11
 
             JComboBox<String> comboBoxMenuAgente = new JComboBox<>(opcionesAgente.toArray(new String[0]));
@@ -391,6 +486,7 @@ public class inicio {
                     break;
 
                 case 7:
+                    consoleAdapterVuelo.consultar();
 
                     break;
 
@@ -402,6 +498,7 @@ public class inicio {
                     break;
 
                 case 10:
+                    tarifaController.buscar();
                     break;
 
                 case 11:
