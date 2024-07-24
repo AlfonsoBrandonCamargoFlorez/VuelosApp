@@ -70,6 +70,11 @@ import com.agencia.tipoDocumento.application.UpdateTipoDocumentoUseCase;
 import com.agencia.tipoDocumento.domain.service.TipoDocumentoService;
 import com.agencia.tipoDocumento.infraestructure.TipoDocumentoController;
 import com.agencia.tipoDocumento.infraestructure.TipoDocumentoRepository;
+import com.agencia.trayecto.application.DeleteTrayectoUseCase;
+import com.agencia.trayecto.application.FindTrayectoUseCase;
+import com.agencia.trayecto.application.UpdateTrayectoUseCase;
+import com.agencia.trayecto.infraestructure.TrayectoController;
+import com.agencia.trayecto.infraestructure.TrayectoRepository;
 import com.agencia.tripulacion.application.CreateTripulacionUseCase;
 import com.agencia.tripulacion.application.FindTripulacionUseCase;
 import com.agencia.tripulacion.domain.service.TripulacionService;
@@ -208,6 +213,14 @@ public class inicio {
 
 
 
+        TrayectoRepository trayectoRepository = new TrayectoRepository();
+        FindTrayectoUseCase findTrayectoUseCase = new FindTrayectoUseCase(trayectoRepository);
+        UpdateTrayectoUseCase updateTrayectoUseCase = new UpdateTrayectoUseCase(trayectoRepository);
+        DeleteTrayectoUseCase deleteTrayectoUseCase = new DeleteTrayectoUseCase(trayectoRepository);
+
+        TrayectoController trayectoController = new TrayectoController(findTrayectoUseCase, updateTrayectoUseCase, deleteTrayectoUseCase);
+
+
         
         UpdateEscalaUseCase updateEscalaUseCase = new UpdateEscalaUseCase(escalaRepository);
         DeleteEscalaUseCase deleteEscalaUseCase = new DeleteEscalaUseCase(escalaRepository);
@@ -217,6 +230,7 @@ public class inicio {
         
 
         
+
 
 
 
@@ -306,9 +320,9 @@ public class inicio {
             opcionesAdmin.add("Información Avión"); // 4        RR
 
             opcionesAdmin.add("Asignar Tripulación al Trayecto"); // 5  RR
-            opcionesAdmin.add("Información Trayecto"); // 6
-            opcionesAdmin.add("Editar Trayecto"); // 7
-            opcionesAdmin.add("Eliminar Trayecto"); // 8
+            opcionesAdmin.add("Información Trayecto"); // 6     RR
+            opcionesAdmin.add("Editar Trayecto"); // 7      RR
+            opcionesAdmin.add("Eliminar Trayecto"); // 8    RR
             opcionesAdmin.add("Asignar Avión a una Escala"); // 9   RR
             opcionesAdmin.add("Buscar Escalas de un Trayecto"); // 10   RR
             opcionesAdmin.add("Editar Información de Escala"); // 11    RR
@@ -375,12 +389,15 @@ public class inicio {
                     break;
 
                 case 6:
+                trayectoController.findTrayecto();
                     break;
 
                 case 7:
+                trayectoController.updateTrayecto();
                     break;
 
                 case 8:
+                trayectoController.deleteTrayecto();
                     break;
 
                 case 9:
