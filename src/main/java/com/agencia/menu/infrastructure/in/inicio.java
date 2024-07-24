@@ -54,6 +54,11 @@ import com.agencia.tipoDocumento.application.UpdateTipoDocumentoUseCase;
 import com.agencia.tipoDocumento.domain.service.TipoDocumentoService;
 import com.agencia.tipoDocumento.infraestructure.TipoDocumentoController;
 import com.agencia.tipoDocumento.infraestructure.TipoDocumentoRepository;
+import com.agencia.tripulacion.application.CreateTripulacionUseCase;
+import com.agencia.tripulacion.application.FindTripulacionUseCase;
+import com.agencia.tripulacion.domain.service.TripulacionService;
+import com.agencia.tripulacion.infraestructure.TripulacionController;
+import com.agencia.tripulacion.infraestructure.TripulacionRepository;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -112,6 +117,17 @@ public class inicio {
         FindTipoDocumentoUseCase findTipoDocumentoUseCase = new FindTipoDocumentoUseCase(tipoDocumentoService) ;
 
         TipoDocumentoController tipoDocumentoController = new TipoDocumentoController(createTipoDocumentoUseCase, updateTipoDocumentoUseCase, deleteTipoDocumentoUseCase, findTipoDocumentoUseCase);
+
+
+
+        TripulacionService tripulacionService = new TripulacionRepository(); 
+        CreateTripulacionUseCase createTripulacionUseCase = new CreateTripulacionUseCase(tripulacionService);
+        FindTripulacionUseCase findTripulacionUseCase = new FindTripulacionUseCase(tripulacionService);
+
+        TripulacionController tripulacionController = new TripulacionController(createTripulacionUseCase, findTripulacionUseCase);
+
+
+
 
 
 
@@ -239,7 +255,7 @@ public class inicio {
             opcionesAdmin.add("Eliminar Avión"); // 3       RR
             opcionesAdmin.add("Información Avión"); // 4        RR
 
-            opcionesAdmin.add("Asignar Tripulación al Trayecto"); // 5
+            opcionesAdmin.add("Asignar Tripulación al Trayecto"); // 5  RR
             opcionesAdmin.add("Información Trayecto"); // 6
             opcionesAdmin.add("Editar Trayecto"); // 7
             opcionesAdmin.add("Eliminar Trayecto"); // 8
@@ -264,7 +280,7 @@ public class inicio {
             opcionesAdmin.add("Buscar según Tipo de Documento"); // 24      RR
 
             opcionesAdmin.add("Buscar Información de Vuelo"); // 25 RR
-            opcionesAdmin.add("Buscar Asignación de Tripulación"); // 26
+            opcionesAdmin.add("Buscar Asignación de Tripulación"); // 26    RR
             JComboBox<String> comboBoxMenuAdmin = new JComboBox<>(opcionesAdmin.toArray(new String[0]));
             JPanel panelAdministrador = new JPanel(new GridLayout(0, 1));
             panelAdministrador.add(new JLabel("menu administrador:"));
@@ -305,7 +321,7 @@ public class inicio {
                     break;
 
                 case 5:
-
+                tripulacionController.createTripulacion();
                     break;
 
                 case 6:
@@ -393,7 +409,7 @@ public class inicio {
                     break;
 
                 case 26:
-
+                tripulacionController.findTripulacion();
                     break;
 
                 default:
@@ -456,7 +472,7 @@ public class inicio {
             opcionesAgente.add("Información de Cliente"); // RR
 
             opcionesAgente.add("Información de Vuelo"); // 7 RR
-            opcionesAgente.add("Información Asignación de Tripulación"); // 8
+            opcionesAgente.add("Información Asignación de Tripulación"); // 8   RR
             opcionesAgente.add("Información Escalas de un Trayecto"); // 9
             opcionesAgente.add("Información Tarifa de Vuelo"); // 10 RR
             opcionesAgente.add("Información Tipo de Documento"); // 11
@@ -516,7 +532,7 @@ public class inicio {
                     break;
 
                 case 8:
-
+                    tripulacionController.findTripulacion();
                     break;
 
                 case 9:
