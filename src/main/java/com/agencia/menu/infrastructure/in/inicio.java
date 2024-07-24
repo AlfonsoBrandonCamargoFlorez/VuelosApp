@@ -25,7 +25,11 @@ import com.agencia.cliente.aplication.UpdateClienteCase;
 import com.agencia.cliente.domain.service.ClienteService;
 import com.agencia.cliente.infrastructure.in.ClienteController;
 import com.agencia.cliente.infrastructure.out.ClienteRepository;
+import com.agencia.escala.application.AsignAvionUseCase;
+import com.agencia.escala.application.DeleteEscalaUseCase;
 import com.agencia.escala.application.FindEscalaUseCase;
+import com.agencia.escala.application.UpdateEscalaUseCase;
+import com.agencia.escala.infraestructure.EscalaController;
 import com.agencia.escala.infraestructure.EscalaRepository;
 import com.agencia.reserva.application.AsignarsillaUseCase;
 import com.agencia.reserva.application.BuscarCiudades;
@@ -205,6 +209,13 @@ public class inicio {
 
 
         
+        UpdateEscalaUseCase updateEscalaUseCase = new UpdateEscalaUseCase(escalaRepository);
+        DeleteEscalaUseCase deleteEscalaUseCase = new DeleteEscalaUseCase(escalaRepository);
+        AsignAvionUseCase asignAvionUseCase = new AsignAvionUseCase(escalaRepository);
+
+        EscalaController escalaController = new EscalaController(findEscalaUseCase, updateEscalaUseCase, deleteEscalaUseCase, asignAvionUseCase);
+        
+
         
 
 
@@ -298,10 +309,10 @@ public class inicio {
             opcionesAdmin.add("Información Trayecto"); // 6
             opcionesAdmin.add("Editar Trayecto"); // 7
             opcionesAdmin.add("Eliminar Trayecto"); // 8
-            opcionesAdmin.add("Asignar Avión a un Trayecto"); // 9
-            opcionesAdmin.add("Buscar Escalas de un Trayecto"); // 10
-            opcionesAdmin.add("Editar Información de Escala"); // 11
-            opcionesAdmin.add("Eliminar Escala"); // 12
+            opcionesAdmin.add("Asignar Avión a una Escala"); // 9   RR
+            opcionesAdmin.add("Buscar Escalas de un Trayecto"); // 10   RR
+            opcionesAdmin.add("Editar Información de Escala"); // 11    RR
+            opcionesAdmin.add("Eliminar Escala"); // 12     RR
 
             opcionesAdmin.add("Agregar Aeropuerto"); // 13 RR
             opcionesAdmin.add("Editar Aeropuerto"); // 14 RR
@@ -373,18 +384,19 @@ public class inicio {
                     break;
 
                 case 9:
+                escalaController.asignAvion();
                     break;
-
+                
                 case 10:
-
+                escalaController.findEscalas();
                     break;
 
                 case 11:
-
+                escalaController.updateEscala();
                     break;
 
                 case 12:
-
+                escalaController.deleteEscala();
                     break;
 
                 case 13:

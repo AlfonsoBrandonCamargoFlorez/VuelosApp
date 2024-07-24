@@ -27,54 +27,7 @@ public class EscalaController {
 
     Scanner scanner = new Scanner(System.in);
 
-    public void gestionEscala() {
 
-        while (true) {
-            System.out.println("1. Encontrar Escala: ");
-            System.out.println("2. Actualizar Escala: ");
-            System.out.println("3. Eliminar Escala: ");
-            System.out.println("4. Asignar Avión a escala: ");
-
-            System.out.println("4. Salir: ");
-
-            int opcion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcion) {
-                case 1:
-
-                    findEscalas();
-
-                    break;
-
-                case 2:
-
-                    updateEscala();
-
-                    break;
-
-                case 3:
-
-                    deleteEscala();
-
-                    break;
-
-                case 4:
-
-                    asignAvion();
-
-                case 5:
-                    System.out.println("Saliendo...");
-                    return;
-
-                default:
-
-                    break;
-
-            }
-        }
-
-    }
 
    public void findEscalas() {
     System.out.println("¿Cuál es el id del trayecto del cual desea consultar las escalas?");
